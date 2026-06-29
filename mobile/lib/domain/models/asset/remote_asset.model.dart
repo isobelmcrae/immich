@@ -52,6 +52,8 @@ class RemoteAsset extends BaseAsset {
 
   bool get isTrashed => deletedAt != null;
 
+  bool get isStacked => stackId != null;
+
   @override
   String toString() {
     return '''Asset {

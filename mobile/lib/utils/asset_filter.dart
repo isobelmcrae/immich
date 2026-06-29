@@ -16,6 +16,8 @@ extension type const AssetFilter<T extends BaseAsset>(Iterable<T> assets) implem
   AssetFilter<RemoteAsset> notArchived() => notVisibility(.archive);
   AssetFilter<RemoteAsset> stacked() => remote().where(_isStacked);
   AssetFilter<RemoteAsset> notStacked() => remote().whereNot(_isStacked);
+  AssetFilter<RemoteAsset> trashed() => remote().where(_isTrashed);
+  AssetFilter<RemoteAsset> notTrashed() => remote().whereNot(_isTrashed);
 
   AssetFilter<LocalAsset> local() => AssetFilter(assets.whereType<LocalAsset>());
   AssetFilter<LocalAsset> backedUp() => local().where(_isBackedUp);
@@ -23,6 +25,7 @@ extension type const AssetFilter<T extends BaseAsset>(Iterable<T> assets) implem
 
 bool _isFavorite(BaseAsset asset) => asset.isFavorite;
 bool _isStacked(RemoteAsset asset) => asset.isStacked;
+bool _isTrashed(RemoteAsset asset) => asset.isTrashed;
 bool _isBackedUp(LocalAsset asset) => asset.remoteAssetId != null;
 bool Function(RemoteAsset asset) _hasVisibility(AssetVisibility visibility) =>
     (asset) => asset.visibility == visibility;
